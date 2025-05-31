@@ -9,45 +9,32 @@ const App = () => {
   const [startTime, setStartTime] = useState(null);
   const inputRef = useRef(null);
 
-  // Multiple sample texts for variety
-  const sampleTexts = [
-    // Short sentences
-    "Code every day.",
-    "Type without looking.",
-    "Debug with patience.",
-    "Learn keyboard shortcuts.",
-    "Practice builds speed.",
-    "Read error messages carefully.",
-    "Refactor often.",
-    "Keep functions small.",
-    "Use meaningful names.",
-    "Stay consistent.",
+  // Array of possible typing texts
+ const sampleTexts = [
+    "The quick brown fox jumps over the lazy dog, a sentence designed to test every letter on your keyboard. Repeating this pangram helps build muscle memory, ensuring your fingers learn the exact positions of each key without hesitation. Over time, your typing speed will increase as your brain automates the process, turning conscious effort into subconscious action. Consistency is crucial—daily practice, even for just ten minutes, yields better results than sporadic marathon sessions. Remember, accuracy first; speed follows naturally when the foundations are solid.",
 
-    // Longer paragraphs
-    "The quick brown fox jumps over the lazy dog. This classic pangram contains every letter in the English alphabet, making it ideal for typing practice. Repeating it helps build muscle memory for key positions and improves rhythm.",
+    "Programming is an exercise in structured problem-solving, where breaking down complex tasks into smaller, manageable steps is the key to success. When faced with a bug, resist the urge to panic; instead, isolate the issue by testing each component individually and verifying inputs and outputs. Writing clean, modular code from the start saves countless hours of debugging later, as does thorough documentation of your thought process. Version control systems like Git are essential for tracking changes, collaborating with others, and reverting mistakes without losing progress. The best developers aren’t those who write code the fastest, but those who write maintainable, scalable solutions with foresight.",
 
-    "Programming is more about problem-solving than syntax. When stuck, break the task into smaller steps, research incrementally, and test each part. This approach reduces frustration and leads to cleaner solutions over time.",
+    "Touch typing is a skill that transforms how you interact with technology, eliminating the need to look at the keyboard and freeing your mind to focus on ideas rather than mechanics. Begin by mastering the home row keys, then gradually introduce more keys, symbols, and numbers until your fingers move effortlessly across the entire keyboard. Speed drills and accuracy exercises should be balanced—typing too fast with errors reinforces bad habits, while typing too slowly limits progress. Over time, your fingers will develop muscle memory, allowing you to type without conscious thought, much like riding a bicycle. Regular practice, combined with proper posture and ergonomics, ensures sustainable improvement and prevents strain or injury.",
 
-    "Touch typing efficiently requires discipline. Start by mastering the home row keys, then gradually expand to symbols and numbers. Speed will follow naturally once accuracy becomes second nature—no shortcuts exist.",
+    "Debugging is as much an art as it is a science, requiring patience, logic, and a systematic approach to isolating issues. Start by reproducing the problem consistently, then narrow down the possible causes by examining variables, function outputs, and edge cases. Logging and breakpoints are invaluable tools for observing program behavior in real time, revealing discrepancies between expected and actual results. Often, the bug lies not in the complex algorithm but in a simple oversight, like an off-by-one error or a misplaced semicolon. Cultivating a mindset of curiosity rather than frustration turns debugging from a chore into a rewarding puzzle.",
 
-    "Clean code is like a well-organized book. Variables should read like clear nouns, functions like strong verbs, and comments like footnotes (used sparingly). Future maintainers will thank you for the clarity.",
+    "Clean code is a hallmark of professional developers, characterized by readability, modularity, and thoughtful design. Meaningful variable names, concise functions with single responsibilities, and strategic comments make code self-documenting and easier to maintain. Avoid premature optimization; focus first on correctness and clarity, then refine performance where necessary. Code reviews and pair programming foster collaboration and catch potential issues early, while adherence to style guides ensures consistency across teams. Remember, you write code once but read it many times—invest the effort to make it understandable for your future self and others.",
 
-    "Consistency trumps intensity in skill development. Fifteen minutes of daily typing practice yields better long-term results than a single weekly marathon session. Track your progress to stay motivated.",
+    "Consistency is the backbone of skill mastery, whether in typing, coding, or any technical discipline. Short, daily practice sessions are far more effective than irregular, intense bursts, as they reinforce neural pathways and build habits incrementally. Track your progress with metrics like words per minute (WPM) or lines of bug-free code to stay motivated and identify areas for improvement. Embrace challenges as opportunities to grow, and don’t fear mistakes—they’re inevitable steps toward expertise. Over months and years, small efforts compound into significant achievements, turning beginners into experts through deliberate, sustained effort.",
 
-    "Algorithms are the backbone of efficient software. Start with basic sorting and searching techniques, then explore recursion and dynamic programming. Real mastery comes from applying them to real projects, not just theory.",
+    "Algorithms and data structures form the foundation of efficient software, enabling programs to handle large-scale data and complex operations gracefully. Start with basics like arrays, linked lists, and sorting algorithms, then progress to trees, graphs, and dynamic programming. Understanding time and space complexity helps you choose the right tool for each problem, optimizing performance without unnecessary overhead. Practical application is key: implement these concepts in projects, solve coding challenges, and analyze real-world systems to see them in action. Theoretical knowledge paired with hands-on experience transforms abstract concepts into intuitive problem-solving tools.",
 
-    "Version control is non-negotiable. Commit small changes frequently, write descriptive messages, and branch early. Git proficiency saves hours of lost work and simplifies collaboration across teams.",
+    "Version control systems like Git are indispensable for modern development, safeguarding your work and enabling seamless collaboration. Commit small, logical changes frequently with descriptive messages, making it easier to track progress and revert if needed. Branching allows parallel experimentation without disrupting the main codebase, while pull requests facilitate code reviews and knowledge sharing. Mastering commands like rebase, cherry-pick, and stash unlocks advanced workflows, streamlining your development process. Treat Git not as an afterthought but as an integral part of your workflow, and it will repay you with efficiency and peace of mind.",
 
-    "Keyboard shortcuts are productivity multipliers. Learn IDE navigation (e.g., jumping between files, searching symbols) and system commands (window management, clipboard history). The time saved compounds dramatically.",
+    "Keyboard shortcuts and tool mastery dramatically boost productivity, reducing reliance on mice and repetitive actions. Learn your IDE’s shortcuts for navigation, refactoring, and debugging to minimize context switching and keep focus on coding. System-level shortcuts for window management, clipboard history, and text expansion further accelerate workflows, saving hours over time. Customize your environment to fit your habits, removing friction from common tasks. The initial investment in learning these tools pays exponential dividends, turning tedious processes into effortless reflexes.",
 
-    "Debugging is a detective game. Isolate the issue by replicating it, check inputs/outputs at each step, and question assumptions. The bug is often where you least expect it—stay methodical.",
-
-    "Ergonomics matter for long typing sessions. Adjust chair height, keep wrists straight, and position monitors at eye level. Pain is a sign to rethink your setup before chronic issues develop."
-  ];
+    "Ergonomics is critical for sustaining long typing or coding sessions without physical strain. Adjust your chair, desk, and monitor height to maintain a neutral posture—wrists straight, shoulders relaxed, and eyes level with the screen. Take regular breaks to stretch and rest your eyes, following the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds. Invest in a quality keyboard and mouse that support natural hand positions, preventing repetitive stress injuries. Prioritizing health ensures you can work productively for years without discomfort or long-term damage."
+];
 
   const [sampleText, setSampleText] = useState("");
 
-  // Pick a random text at first load
+  // Pick a random text on load and before each test
   useEffect(() => {
     setSampleText(sampleTexts[Math.floor(Math.random() * sampleTexts.length)]);
   }, []);
@@ -55,7 +42,6 @@ const App = () => {
   const words = sampleText.split(" ");
 
   const startTest = () => {
-    // Select a new random text before starting
     const newText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
     setSampleText(newText);
     setIsRunning(true);
@@ -80,7 +66,6 @@ const App = () => {
         setText("");
       }
 
-      // Check if all words are done
       if (inputWords.length + 1 === words.length) {
         calculateResults();
         setCompleted(true);
@@ -107,6 +92,22 @@ const App = () => {
     setAccuracy(accuracy);
     setTimeElapsed(Math.round(seconds));
   };
+
+  // Timer logic
+  useEffect(() => {
+    let interval = null;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setTimeElapsed(Math.floor((Date.now() - startTime) / 1000));
+      }, 1000);
+    } else if (!isRunning && interval) {
+      clearInterval(interval);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isRunning, startTime]);
 
   useEffect(() => {
     if (isRunning && inputWords.length === 0 && text === "") {
@@ -146,13 +147,16 @@ const App = () => {
           font-family: Arial, sans-serif;
           background-color: #111827;
           color: #d1d5db;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .container {
           max-width: 960px;
           width: 100%;
           padding: 2rem;
-          margin: auto;
           border-radius: 1rem;
           background-color: #1f2937;
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
@@ -304,7 +308,7 @@ const App = () => {
                   Start Test
                 </button>
               ) : (
-                <span className="timer">Time: {Math.floor(timeElapsed)}s</span>
+                <span className="timer">Time: {timeElapsed}s</span>
               )}
             </div>
           </>
@@ -335,8 +339,6 @@ const App = () => {
           </div>
         )}
 
-        <div className="footer">
-        </div>
       </div>
     </>
   );
