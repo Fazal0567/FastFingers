@@ -116,25 +116,32 @@ const App = () => {
   }, [isRunning, inputWords, text]);
 
   const renderWords = () => {
-    return words.map((word, index) => {
-      let className = "word";
-      if (index === inputWords.length && isRunning) {
-        className += " current-word";
+  const wordsPerLine = 12; // Approximate number of words per line
+  const lines = Math.ceil(words.length / wordsPerLine);
+  const containerHeight = lines * 28; // ~28px per line
+
+  // Set dynamic height for words container
+  document.querySelector(".words-container")?.style.setProperty("height", `${containerHeight}px`);
+
+  return words.map((word, index) => {
+    let className = "word";
+    if (index === inputWords.length && isRunning) {
+      className += " current-word";
+    }
+    if (index < inputWords.length) {
+      if (inputWords[index] === word) {
+        className += " correct";
+      } else {
+        className += " incorrect";
       }
-      if (index < inputWords.length) {
-        if (inputWords[index] === word) {
-          className += " correct";
-        } else {
-          className += " incorrect";
-        }
-      }
-      return (
-        <span key={index} className={className}>
-          {word}
-        </span>
-      );
-    });
-  };
+    }
+    return (
+      <span key={index} className={className}>
+        {word}
+      </span>
+    );
+  });
+};
 
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
